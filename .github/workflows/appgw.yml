@@ -1,0 +1,55 @@
+name: Azure Application Gateway Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AZURE_RESOURCE_GROUP: <resource-group-name>
+  AZURE_REGION: <azure-region>
+  AZURE_APP_GATEWAY_NAME: <app-gateway-name>
+  AZURE_SUBSCRIPTION_ID: <subscription-id>
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Set up Azure CLI
+      uses: azure/cli@v1
+      with:
+        azcliversion: 2.0.72
+    
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Create Resource Group
+      run: |
+        az group create --name ${{ env.AZURE_RESOURCE_GROUP }} --location ${{ env.AZURE_REGION }}
+    
+    - name: Create Application Gateway
+      run: |
+        az network application-gateway create \
+          --name ${{ env.AZURE_APP_GATEWAY_NAME }} \
+          --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+          --location ${{ env.AZURE_REGION }} \
+          --sku Standard_v2 \
+          --http-settings-cookie-based-affinity Disabled \
+          --public-ip-address "" \
+          --frontend-port 80 \
+          --http-settings-port 80 \
+          --routing-rule-type Basic \
+          --servers "10.0.0.1" "10.0.0.2" # Add your backend server IP addresses here
+    
+    - name: Show Application Gateway details
+      run: |
+        az network application-gateway show \
+          --name ${{ env.AZURE_APP_GATEWAY_NAME }} \
+          --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+          --output table
