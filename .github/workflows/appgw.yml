@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  AZURE_RESOURCE_GROUP: AppGW_RG
+  AZURE_RESOURCE_GROUP: AppGW_RG1
   AZURE_REGION: westus
   AZURE_APP_GATEWAY_NAME: ewin-az-appgw-nonprod-01
   AZURE_SUBSCRIPTION_ID: a1286780-2266-4ae8-834f-dcd497287f94
@@ -29,9 +29,9 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
-    - name: Create Resource Group
-      run: |
-        az group create --name ${{ env.AZURE_RESOURCE_GROUP }} --location ${{ env.AZURE_REGION }}
+    #- name: Create Resource Group
+    #  run: |
+    #    az group create --name ${{ env.AZURE_RESOURCE_GROUP }} --location ${{ env.AZURE_REGION }}
     
     - name: Create Application Gateway
       run: |
