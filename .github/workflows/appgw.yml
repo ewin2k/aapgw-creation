@@ -6,10 +6,10 @@ on:
       - main
 
 env:
-  AZURE_RESOURCE_GROUP: <resource-group-name>
-  AZURE_REGION: <azure-region>
-  AZURE_APP_GATEWAY_NAME: <app-gateway-name>
-  AZURE_SUBSCRIPTION_ID: <subscription-id>
+  AZURE_RESOURCE_GROUP: AppGW_RG
+  AZURE_REGION: westus
+  AZURE_APP_GATEWAY_NAME: ewin-az-appgw-nonprod-01
+  AZURE_SUBSCRIPTION_ID: a1286780-2266-4ae8-834f-dcd497287f94
 
 jobs:
   deploy:
