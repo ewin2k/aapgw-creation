@@ -1,0 +1,22 @@
+swagger_file_type: json
+swagger_content_format: openapi+json
+
+apim_product_displayname: aapgw-creation-external-dev-product
+apim_product_id: "{{ apim_product_displayname }}"
+
+apim_product_apis_list:
+  - aapgw-creation-external-dev
+
+apim_product_enable_custom_policies: False
+
+apim_apis:
+  - { api_displayname: "aapgw creation external dev",
+      api_name: "aapgw-creation-external-dev",
+      api_path: "abs/dev/test",
+      apim_service_url: "api-test",
+      api_custom_policies: False,
+      apim_apis_vset: False } 
+
+
+
+######  OPTIONAL VARIABLES GO BELOW THIS LINE for details see:  https://confluence.safeway.com/display/DigitalDataDevOps/APIM+Management+-+Automation+Documentation #####
